@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inductive Modal Verbs Exercise</title>
+    <!-- Font Awesome CDN for social icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #1f1c2c, #928dab);
+        color: #fff;
+      }
+      header {
+        background: rgba(0, 0, 0, 0.6);
+        padding: 20px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: 2px;
+      }
+      .container {
+        max-width: 800px;
+        margin: 40px auto;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      }
+      h2 {
+        color: #ffd700;
+        text-align: center;
+      }
+      .question {
+        margin: 20px 0;
+        font-size: 18px;
+      }
+      input[type="text"] {
+        padding: 8px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+        margin-left: 5px;
+      }
+      button {
+        margin-top: 20px;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition:
+          transform 0.3s ease,
+          background 0.3s ease;
+      }
+      button:hover {
+        transform: scale(1.1);
+      }
+      .feedback {
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+      }
+      .footer {
+        margin-top: 40px;
+        text-align: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+      }
+      .footer a {
+        margin: 0 15px;
+        text-decoration: none;
+        color: #ffd700;
+        font-size: 28px;
+        transition: color 0.3s ease;
+      }
+      .footer a:hover {
+        color: #00ff7f;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      🔍 Modal Verbs - Inductive Method 🔍
+      <h1>Grammar tools</h1>
+      <h3>Universidad Fidélitas.</h3>
+    </header>
+
+    <div class="container">
+      <h2>Discover the Rule</h2>
+      <p>Look at these sentences:</p>
+      <ul>
+        <li>She <b>can</b> play the guitar.</li>
+        <li>You <b>must</b> stop at the red light.</li>
+        <li>We <b>should</b> visit our grandparents.</li>
+      </ul>
+      <p>
+        <i>Question for you:</i> What word appears before the main verb? What
+        does it express?
+      </p>
+
+      <h2>Practice</h2>
+      <div id="exercise"></div>
+      <button onclick="checkAnswer()">Check Answer</button>
+      <p id="result" class="feedback"></p>
+      <button onclick="nextQuestion()">Next Question</button>
+      <p id="score" class="feedback"></p>
+    </div>
+
+    <div class="footer">
+      <p>
+        <strong
+          >Online exercise created and designed in Santiago de Puriscal, San
+          José, Costa Rica</strong
+        >
+      </p>
+      <p>Designed by: Josbrevar07</p>
+
+      <a href="https://walink.co/341b8e" target="_blank"
+        ><i class="fab fa-whatsapp"></i
+      ></a>
+      <a href="https://www.instagram.com/josbrevar07/" target="_blank"
+        ><i class="fab fa-instagram"></i
+      ></a>
+      <a href="https://www.facebook.com/josue.brenesvargas" target="_blank"
+        ><i class="fab fa-facebook"></i
+      ></a>
+      <a href="https://www.youtube.com/@josbrevar0773" target="_blank"
+        ><i class="fab fa-youtube"></i
+      ></a>
+    </div>
+
+    <script>
+      const questions = [
+        { text: "He ___ speak three languages. (ability)", answer: "can" },
+        { text: "You ___ not park here. (obligation)", answer: "must" },
+        { text: "We ___ exercise more. (advice)", answer: "should" },
+        { text: "They ___ arrive on time. (obligation)", answer: "must" },
+        {
+          text: "I ___ go to the party if I finish my homework. (possibility)",
+          answer: "may",
+        },
+      ];
+
+      let current = 0;
+      let score = 0;
+
+      function showQuestion() {
+        document.getElementById("exercise").innerHTML =
+          `<div class="question">${questions[current].text.replace("___", '<input type="text" id="answer">')}</div>`;
+        document.getElementById("result").textContent = "";
+        document.getElementById("score").textContent =
+          `Score: ${score}/${questions.length}`;
+      }
+
+      function checkAnswer() {
+        let ans = document.getElementById("answer").value.trim().toLowerCase();
+        if (ans === questions[current].answer) {
+          document.getElementById("result").textContent = "✔ Correct!";
+          document.getElementById("result").style.color = "#00ff7f";
+          score++;
+        } else {
+          document.getElementById("result").textContent =
+            "❌ Wrong. Correct answer: " + questions[current].answer;
+          document.getElementById("result").style.color = "#ff4500";
+        }
+        document.getElementById("score").textContent =
+          `Score: ${score}/${questions.length}`;
+      }
+
+      function nextQuestion() {
+        current++;
+        if (current < questions.length) {
+          showQuestion();
+        } else {
+          let percentage = Math.round((score / questions.length) * 100);
+          let message =
+            percentage >= 80
+              ? "🎉 Excellent work, you discovered the rule!"
+              : percentage >= 50
+                ? "👍 Good job, keep practicing!"
+                : "💡 Keep trying, practice makes perfect!";
+          document.getElementById("exercise").innerHTML =
+            "<p>All exercises completed!</p>";
+          document.getElementById("result").textContent = message;
+          document.getElementById("score").textContent =
+            `Final Score: ${score}/${questions.length} (${percentage}%)`;
+        }
+      }
+
+      // Initialize first question
+      showQuestion();
+    </script>
+  </body>
+</html>
